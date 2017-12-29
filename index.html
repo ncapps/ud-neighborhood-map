@@ -10,6 +10,16 @@
       <div class="options-box">
         <h1>Find Your New NYC Home</h1>
         <div>
+          <input id="search-within-time-text" type="text" placeholder="Ex: Google Office NYC or 75 9th Ave, New York, NY">
+          <input id="search-within-time" type="button" value="Go">
+        </div>
+
+        <div>
+          <ul data-bind="foreach: articleList">
+              <li data-bind="text: title, click: $parent.setArticle"></li>
+          </ul>
+        </div>
+        <div>
           <input id="show-listings" type="button" value="Show Listings">
           <input id="hide-listings" type="button" value="Hide Listings">
           <hr>
@@ -37,8 +47,6 @@
             <option value="TRANSIT">transit ride</option>
           </select>
           <span class="text">of</span>
-          <input id="search-within-time-text" type="text" placeholder="Ex: Google Office NYC or 75 9th Ave, New York, NY">
-          <input id="search-within-time" type="button" value="Go">
         </div>
         <hr>
         <div>

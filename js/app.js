@@ -1,3 +1,38 @@
+// These are the real estate listings that will be shown to the user.
+// Normally we'd have these in a database instead.
+
+var initialArticles = [
+{title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
+{title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
+{title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
+{title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
+{title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
+{title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
+]
+
+var Article = function(data) {
+  this.title = ko.observable(data.title);
+  this.location = ko.observable(data.location);
+};
+
+var ViewModel = function() {
+    var self = this;
+
+    this.articleList = ko.observableArray([]);
+
+    initialArticles.forEach(function(articleItem){
+        self.articleList.push(new Article(articleItem));
+    });
+
+    this.setArticle = function(clickedArticle) {
+      console.log(clickedArticle.index)
+    };
+
+};
+
+ko.applyBindings(new ViewModel());
+
+
   var map;
 
   // Create a new blank array for all the listing markers.
@@ -101,16 +136,7 @@
   // Bias the searchbox to within the bounds of the map.
   searchBox.setBounds(map.getBounds());
 
-  // These are the real estate listings that will be shown to the user.
-  // Normally we'd have these in a database instead.
-  var locations = [
-  {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
-  {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
-  {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
-  {title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
-  {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
-  {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
-  ];
+
 
   var largeInfowindow = new google.maps.InfoWindow();
 
@@ -134,10 +160,10 @@
   var highlightedIcon = makeMarkerIcon('FFFF24');
 
   // The following group uses the location array to create an array of markers on initialize.
-  for (var i = 0; i < locations.length; i++) {
+  for (var i = 0; i < initialArticles.length; i++) {
   // Get the position from the location array.
-  var position = locations[i].location;
-  var title = locations[i].title;
+  var position = initialArticles[i].location;
+  var title = initialArticles[i].title;
   // Create a marker per location, and put into markers array.
   var marker = new google.maps.Marker({
     position: position,
