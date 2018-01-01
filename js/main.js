@@ -8,9 +8,11 @@ requirejs.config({
 
 requirejs([
   'knockout',
-  'viewmodels/article',
+  'viewmodels/place',
   'jquery',
   'underscore'
-], function (ko, ArticleViewModel) {
-  ko.applyBindings(new ArticleViewModel([]));
+], function (ko, placeViewModel) {
+
+  ko.applyBindings(new placeViewModel());
+  
 });
