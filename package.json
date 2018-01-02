@@ -1,0 +1,9 @@
+{
+  "name": "udacity-neighborhood-map",
+  "version": "1.0.0",
+  "dependencies": {
+    "knockout": "^3.4.2",
+    "requirejs": "^2.3.5",
+    "yelp-fusion": "^2.0.3"
+  }
+}

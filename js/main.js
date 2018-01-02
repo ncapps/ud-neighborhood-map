@@ -1,18 +1,15 @@
+var requirejs = require('requirejs');
+
 requirejs.config({
-  paths:{
-    knockout: '../node_modules/knockout/build/output/knockout-latest',
-    jquery: '../node_modules/jquery/dist/jquery',
-    underscore: '../node_modules/underscore/underscore'
-  }
+    //Pass the top-level main.js/index.js require
+    //function to requirejs so that node modules
+    //are loaded relative to the top-level JS file.
+    nodeRequire: require
 });
 
-requirejs([
-  'knockout',
-  'viewmodels/place',
-  'jquery',
-  'underscore'
-], function (ko, placeViewModel) {
-
-  ko.applyBindings(new placeViewModel());
-  
+requirejs(['js/app.js', 'bar'],
+function   (foo,   bar) {
+    //foo and bar are loaded according to requirejs
+    //config, but if not found, then node's require
+    //is used to load the module.
 });
