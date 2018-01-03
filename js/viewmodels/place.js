@@ -1,3 +1,9 @@
+define([
+	'knockout',
+	'models/place'
+], function (ko, Place) {
+
+
 // 16 ZOOM for GoogleMaps latlngs
 var initialPlaces = [
   {title: 'Dark Horse Coffee Roasters', location: {lat: 32.7471805, lng: -117.1304319}, type: 'Coffee', id: 'dark-horse-coffee-roasters-san-diego-6'},
@@ -8,15 +14,6 @@ var initialPlaces = [
   {title: 'Mr. Moto Pizza House', location: {lat: 32.7468262, lng: -117.1297292}, type: 'Pizza', id: ''},
   {title: 'Tribute Pizza', location: {lat: 32.7471135, lng: -117.1279531}, type: 'Pizza', id: ''}
 ];
-
-/** MODEL **/
-var Place = function(data) {
-	var self = this;
-	self.title = ko.observable(data.title);
-	self.location = ko.observable(data.location);
-	self.type = ko.observable(data.type);
-	self.id = ko.observable(data.id);
-};
 
 
 /** VIEW MODEL **/
@@ -52,4 +49,5 @@ var ListViewModel = function () {
 	};
 };
 
-ko.applyBindings(new ListViewModel());
+return ListViewModel;
+});
