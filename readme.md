@@ -33,4 +33,5 @@ _If you have other helpful links to share, or find any of the links above no lon
 
 ## Credit
 
+[Map Style](https://snazzymaps.com/style/117/minimalistic-black-and-white)
 This TodoMVC application was created by [@loicknuchel](https://twitter.com/loicknuchel).

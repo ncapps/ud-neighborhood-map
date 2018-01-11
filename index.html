@@ -2,24 +2,57 @@
 <html lang="en" data-framework="knockoutjs">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title>Udacity Map Project</title>
+
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
   </head>
   <body>
-    <div class="container">
-      <h1>Coffee and Pizza in North Park</h1>
-      <div>
-        <ul data-bind="foreach: placeList">
-          <li data-bind="text: title, click: $parent.setPlace"></li>
-        </ul>
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-4 col-xl-4 bd-sidebar">
+          <form class="bd-search d-flex justify-content-center">
+
+            <!-- filter places by coffee, pizza, or show all !-->
+            <div class="btn-group btn-group-toggle">
+              <label class="btn btn-light" data-bind="css: { active: showPlaceType() == 'all' }">
+                <input type="radio" name="filterGroup" id="show-all" value="all" data-bind="checked: showPlaceType, click: filterPlaces"/> All places
+              </label>
+              <label class="btn btn-light" data-bind="css: { active: showPlaceType() == 'coffee' }">
+                <input type="radio" name="filterGroup" id="show-coffee" value="coffee" data-bind="checked: showPlaceType, click: filterPlaces"/> Coffee
+              </label>
+              <label class="btn btn-light" data-bind="css: { active: showPlaceType() == 'pizza' }">
+                <input type="radio" name="filterGroup" id="show-pizza" value="pizza" data-bind="checked: showPlaceType, click: filterPlaces"/> Pizza
+              </label>
+            </div>
+
+            <button class="btn btn-link bd-search-docs-toggle d-md-none p-0 ml-3" type="button" data-toggle="collapse" data-target="#bd-docs-nav" aria-controls="bd-docs-nav" aria-expanded="false" aria-label="Toggle docs navigation">
+              <img src="svg/hamburger.svg" alt="Menu">
+            </button>
+
+          </form>
+
+          <!-- sidebar list of places !-->
+          <nav class="collapse bd-links" id="bd-docs-nav">
+            <div class="list-group" data-bind="foreach: filteredPlaces">
+                <button type="button" class="list-group-item list-group-item-action" data-bind="text: name, click: $parent.setPlace, css: {active: $parent.currentPlace() == $data}">
+                </button>
+            </div>
+          </nav>
+        </div>
+
+          <!-- Google Map !-->
+        <div class="col-12 col-md-8 col-xl-8" id="map"></div>
+
       </div>
     </div>
 
-    <script data-main="js/main" src="node_modules/requirejs/require.js"></script>
-    <!--
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyCB2vemkAO2DirMqzHstBCD0seBzfiODsE&v=3&callback=initMap">
-    </script>
-    !-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+    <script async defer data-main="js/main" src="node_modules/requirejs/require.js"></script>
   </body>
 </html>

@@ -1,81 +1,103 @@
-html, body {
-  font-family: Arial, sans-serif;
-  height: 100%;
-  margin: 0;
-  padding: 0;
+/*!
+ * Bootstrap Docs (https://getbootstrap.com)
+ * Copyright 2011-2017 The Bootstrap Authors
+ * Copyright 2011-2017 Twitter, Inc.
+ * Licensed under the Creative Commons Attribution 3.0 Unported License. For
+ * details, see https://creativecommons.org/licenses/by/3.0/.
+ */
+
+/*
+ * Sidebar
+ */
+
+ .bd-sidebar {
+   -webkit-box-ordinal-group: 1;
+   -ms-flex-order: 0;
+   order: 0;
+   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+   background-color: white;
+   z-index: 1000;
+ }
+
+ @media (min-width: 768px) {
+  .bd-sidebar {
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  @supports ((position: -webkit-sticky) or (position: sticky)) {
+    .bd-sidebar {
+      position: -webkit-sticky;
+      position: sticky;
+      z-index: 1000;
+      height: calc(100vh);
+    }
+  }
 }
 
-.container {
-  height: 100%;
+@media (min-width: 1200px) {
+  .bd-sidebar {
+    max-width: 320px;
+  }
+}
+
+.bd-sidebar .nav > li > a {
+  display: block;
+  padding: .25rem 1.5rem;
+  font-size: 90%;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.bd-sidebar .nav > li > a:hover {
+  color: rgba(0, 0, 0, 0.85);
+  text-decoration: none;
+  background-color: white;
+}
+
+.bd-sidebar .nav > .active > a,
+.bd-sidebar .nav > .active:hover > a {
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.85);
+  background-color: white;
+}
+
+.bd-links {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+@media (min-width: 768px) {
+  @supports ((position: -webkit-sticky) or (position: sticky)) {
+    .bd-links {
+      max-height: calc(100vh - 9rem);
+      overflow-y: auto;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .bd-links {
+    display: block !important;
+  }
+}
+
+.bd-search {
   position: relative;
+  padding: 1rem 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-input {
-  font-size: 12px;
+.bd-search .form-control:focus {
+  border-color: #7952b3;
+  box-shadow: 0 0 0 3px rgba(121, 82, 179, 0.25);
 }
 
-h1 {
-  color: #525454;
-  font-size: 22px;
-  margin: 0 0 10px 0;
-  text-align: center;
-}
-
-#hide-listings,
-#show-listings {
-  width: 48%;
-}
-
-hr {
-  background: #D0D7D9;
-  height: 1px;
-  margin: 20px 0 20px 0;
-  border: none;
-}
+/*
+ * Google map
+ */
 
 #map {
+  position: absolute;
   bottom:0px;
   height: 100%;
-  left: 362px;
-  position: absolute;
   right: 0px;
-}
-
-.options-box {
-  background: #fff;
-  border: 1px solid #999;
-  border-radius: 3px;
-  height: 100%;
-  line-height: 35px;
-  padding: 10px 10px 30px 10px;
-  text-align: left;
-  width: 340px;
-}
-
-#pano {
-  width: 200px;
-  height: 200px;
-}
-
-#places-search,
-#search-within-time-text {
-  width: 84%;
-}
-
-.text {
-  font-size: 12px;
-}
-
-#toggle-drawing {
-  width: 27%;
-  position: relative;
-  margin-left: 10px;
-}
-
-#zoom-to-area-text {
-  width: 70%;
-}
-
-#zoom-to-area {
-  width: 24%;
+  width: 100%;
 }
