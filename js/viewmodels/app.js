@@ -78,13 +78,13 @@ var ViewModel = function (Places) {
 		self.largeInfoWindow.marker = null;
 		self.largeInfoWindow.close();
 		var lastSelectedPlace = self.currentPlace();
-		if (self.currentPlace() !== null) {
+		if (self.currentPlace() !== null && self.currentPlace() !== undefined) {
 			self.currentPlace().marker.setAnimation(null);
 			self.currentPlace().marker.setIcon('img/red-dot.png');
 			self.currentPlace(null);
 		}
 
-		if (clickedPlace !== null && lastSelectedPlace != clickedPlace) {
+		if (clickedPlace !== null && clickedPlace !== undefined && lastSelectedPlace != clickedPlace) {
 			clickedPlace.marker.setAnimation(google.maps.Animation.BOUNCE);
 			clickedPlace.marker.setIcon('img/blue-dot.png');
 			self.currentPlace(clickedPlace);
