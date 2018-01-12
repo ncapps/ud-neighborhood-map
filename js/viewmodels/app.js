@@ -68,10 +68,14 @@ var ViewModel = function (Places) {
 			} else {
 				places[i].marker.setMap(null);
 			}
-
-			self.map.fitBounds(bounds);
 		}
+		self.map.fitBounds(bounds);
+		google.maps.event.addDomListener(window, 'resize', function() {
+	  	self.map.fitBounds(bounds); // `bounds` is a `LatLngBounds` object
+		});
 	};
+
+
 
 
 	self.toggleActiveMarker = function(clickedPlace) {
@@ -88,6 +92,7 @@ var ViewModel = function (Places) {
 			clickedPlace.marker.setAnimation(google.maps.Animation.BOUNCE);
 			clickedPlace.marker.setIcon('img/blue-dot.png');
 			self.currentPlace(clickedPlace);
+			self.map.panTo(clickedPlace.marker.getPosition());
 			self.populateInfoWindow(clickedPlace.marker);
 		}
 	};
@@ -160,6 +165,7 @@ var ViewModel = function (Places) {
 
 return ViewModel;
 });
+
 
 // custom google map style
 var gmapStyle = [
