@@ -10,16 +10,16 @@
  * Sidebar
  */
 
- .bd-sidebar {
-   -webkit-box-ordinal-group: 1;
-   -ms-flex-order: 0;
-   order: 0;
-   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-   background-color: white;
-   z-index: 1000;
- }
+.bd-sidebar {
+  -webkit-box-ordinal-group: 1;
+  -ms-flex-order: 0;
+  order: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: white;
+  z-index: 1000;
+}
 
- @media (min-width: 768px) {
+@media (min-width: 768px) {
   .bd-sidebar {
     border-right: 1px solid rgba(0, 0, 0, 0.1);
   }
@@ -39,21 +39,20 @@
   }
 }
 
-.bd-sidebar .nav > li > a {
+.bd-sidebar .nav>li>a {
   display: block;
   padding: .25rem 1.5rem;
   font-size: 90%;
   color: rgba(0, 0, 0, 0.65);
 }
 
-.bd-sidebar .nav > li > a:hover {
+.bd-sidebar .nav>li>a:hover {
   color: rgba(0, 0, 0, 0.85);
   text-decoration: none;
   background-color: white;
 }
 
-.bd-sidebar .nav > .active > a,
-.bd-sidebar .nav > .active:hover > a {
+.bd-sidebar .nav>.active>a, .bd-sidebar .nav>.active:hover>a {
   font-weight: 500;
   color: rgba(0, 0, 0, 0.85);
   background-color: white;
@@ -96,49 +95,49 @@
 
 #map {
   position: absolute;
-  bottom:0px;
+  bottom: 0px;
   height: 100%;
   right: 0px;
   width: 100%;
 }
 
 .gm-err-container {
-    height: 100%;
-    width: 100%;
-    display: table;
-    background-color: #e0e0e0;
-    position: relative;
-    left: 0;
-    top: 0;
+  height: 100%;
+  width: 100%;
+  display: table;
+  background-color: #e0e0e0;
+  position: relative;
+  left: 0;
+  top: 0;
 }
 
 .gm-err-content {
-    border-radius: 1px;
-    padding-top: 0;
-    padding-left: 10%;
-    padding-right: 10%;
-    position: static;
-    vertical-align: middle;
-    display: table-cell;
+  border-radius: 1px;
+  padding-top: 0;
+  padding-left: 10%;
+  padding-right: 10%;
+  position: static;
+  vertical-align: middle;
+  display: table-cell;
 }
 
 .gm-err-icon {
-    text-align: center;
+  text-align: center;
 }
 
 .gm-err-title {
-    margin: 5px;
-    margin-bottom: 20px;
-    color: #616161;
-    font-family: Roboto,Arial,sans-serif;
-    text-align: center;
-    font-size: 24px;
+  margin: 5px;
+  margin-bottom: 20px;
+  color: #616161;
+  font-family: Roboto, Arial, sans-serif;
+  text-align: center;
+  font-size: 24px;
 }
 
 .gm-err-message {
-    margin: 5px;
-    color: #757575;
-    font-family: Roboto,Arial,sans-serif;
-    text-align: center;
-    font-size: 12px;
+  margin: 5px;
+  color: #757575;
+  font-family: Roboto, Arial, sans-serif;
+  text-align: center;
+  font-size: 12px;
 }
