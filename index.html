@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
   </head>
   <body>
 
@@ -38,7 +39,7 @@
           <!-- sidebar list of places !-->
           <nav class="collapse bd-links" id="bd-docs-nav">
             <div class="list-group" data-bind="foreach: filteredPlaces">
-                <button type="button" class="list-group-item list-group-item-action" data-bind="text: name, click: $parent.setPlace, css: {active: $parent.currentPlace() == $data}">
+                <button type="button" class="list-group-item list-group-item-action" data-bind="text: name, click: $parent.toggleActiveMarker, css: {active: $parent.currentPlace() == $data}">
                 </button>
             </div>
           </nav>
@@ -50,9 +51,11 @@
       </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
-    <script async defer data-main="js/main" src="node_modules/requirejs/require.js"></script>
+    <script data-main="js/main" src="node_modules/requirejs/require.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCB2vemkAO2DirMqzHstBCD0seBzfiODsE&v=3"></script>
+
   </body>
 </html>

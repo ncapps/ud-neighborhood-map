@@ -1,15 +1,13 @@
 define([
 	'knockout',
-	'models/place',
-	'https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCB2vemkAO2DirMqzHstBCD0seBzfiODsE&v=3',
-	'views/gmap'
-], function (ko, Place, gmap, gmapStyle) {
+	'models/place'
+], function (ko, Place) {
 
 
 var ViewModel = function (Places) {
   var self = this;
 	self.largeInfoWindow = new google.maps.InfoWindow();
-	
+
 	self.allPlaces = ko.observableArray(Places.map(function (place) {
 		var newPlace = new Place(place);
 		var marker = new google.maps.Marker({
@@ -17,7 +15,8 @@ var ViewModel = function (Places) {
 			title: place.name,
 			icon: "img/red-dot.png",
 			animation: google.maps.Animation.DROP,
-			id: place.id
+			id: place.id,
+			venueID: place.venueID
 		});
 		newPlace.marker = marker;
 		marker.addListener('click', function() {
@@ -32,6 +31,7 @@ var ViewModel = function (Places) {
 
 	self.showPlaceType = ko.observable('all');
 
+	// Display location listings and markers of a given type (i.e. all, coffee, pizza)
 	self.filteredPlaces = ko.computed(function () {
 		switch (self.showPlaceType()) {
 		case 'coffee':
@@ -50,12 +50,12 @@ var ViewModel = function (Places) {
 	self.map = new google.maps.Map(document.getElementById('map'), {
 			center: {lat: 32.748473, lng: -117.138784},
 			zoom: 16,
-			styles: gmapStyle.styles,
+			styles: gmapStyle,
 			mapTypeControl: false
 	});
 
-	/* start google map helper functions */
 
+	/*** start google map helper functions ***/
 	self.addMarkers = function () {
 		var bounds = new google.maps.LatLngBounds();
 		var places = self.allPlaces();
@@ -73,8 +73,8 @@ var ViewModel = function (Places) {
 		}
 	};
 
+
 	self.toggleActiveMarker = function(clickedPlace) {
-		// Stop bouncing for previously selected marker
 		self.largeInfoWindow.marker = null;
 		self.largeInfoWindow.close();
 		var lastSelectedPlace = self.currentPlace();
@@ -92,81 +92,219 @@ var ViewModel = function (Places) {
 		}
 	};
 
-	// This function populates the infowindow when the marker is clicked. We'll only allow
-	// one infowindow which will open at the marker that is clicked, and populate based
-	// on that markers position.
+
 	self.populateInfoWindow = function (marker) {
 	  // Check to make sure the infowindow is not already opened on this marker.
 		var infowindow = self.largeInfoWindow;
 	  if (infowindow.marker != marker) {
-	    // Clear the infowindow content to give the streetview time to load.
 	    infowindow.setContent('');
 	    infowindow.marker = marker;
-	    // Make sure the marker property is cleared if the infowindow is closed.
+
 	    infowindow.addListener('closeclick', function() {
 				self.toggleActiveMarker(null);
 	    });
 
-	    var service = new google.maps.places.PlacesService(self.map);
-	    service.getDetails({
-	      placeId: marker.id
-	    }, function(place, status) {
-	      if (status === google.maps.places.PlacesServiceStatus.OK) {
-	        // Set the marker property on this infowindow so it isn't created again.
-	        infowindow.marker = marker;
-	        var innerHTML = '<div>';
-	        if (place.name) {
-	          innerHTML += '<strong>' + place.name + '</strong>';
-	        }
-	        if (place.formatted_address) {
-	          innerHTML += '<br>' + place.formatted_address;
-	        }
-	        if (place.formatted_phone_number) {
-	          innerHTML += '<br>' + place.formatted_phone_number;
-	        }
-	        if (place.opening_hours) {
-	          innerHTML += '<br><br><strong>Hours:</strong><br>' +
-	              place.opening_hours.weekday_text[0] + '<br>' +
-	              place.opening_hours.weekday_text[1] + '<br>' +
-	              place.opening_hours.weekday_text[2] + '<br>' +
-	              place.opening_hours.weekday_text[3] + '<br>' +
-	              place.opening_hours.weekday_text[4] + '<br>' +
-	              place.opening_hours.weekday_text[5] + '<br>' +
-	              place.opening_hours.weekday_text[6];
-	        }
-	        if (place.photos) {
-	          innerHTML += '<br><br><img src="' + place.photos[0].getUrl(
-	              {maxHeight: 100, maxWidth: 200}) + '">';
-	        }
-	        innerHTML += '</div>';
-	        infowindow.setContent(innerHTML);
-	      }
+			// Set the marker property on this infowindow so it isn't created again.
+			infowindow.marker = marker;
 
-	      // Open the infowindow on the correct marker.
-	      infowindow.open(self.map, marker);
-	    });
+			var foursquareAPI = 'https://api.foursquare.com/v2/venues/' + marker.venueID;
+			$.getJSON( foursquareAPI, {
+				client_id:'ENIPTOP54HMOHON4OJAPMP10T2YRU1WPOSL3TFFOIVSU2A4R',
+				client_secret:'RBEGKDXDZSWJDGAOW0MWVW0AWHJKCHQBD0V2TMJLMACZEEZF',
+				v:'20180111'
+			}, function( data ) {
+				var venue = data.response.venue;
+
+				var innerHTML = '<div>';
+				if (venue.name) {
+					innerHTML += '<strong> <a target="_blank" href="' +
+						venue.canonicalUrl + '">' + venue.name + '</a> </strong>';
+				}
+				if (venue.location.address) {
+					innerHTML += '<br>' + venue.location.address;
+				}
+				if (venue.contact.formattedPhone) {
+					innerHTML += '<br>' + venue.contact.formattedPhone;
+				}
+				var photo = venue.bestPhoto;
+				if (photo) {
+					innerHTML += '<br><br><img src="' + photo.prefix + "300x100" + photo.suffix + '">';
+				}
+				innerHTML += '</div>';
+				infowindow.setContent(innerHTML);
+
+			}).fail(function() {
+				var innerHTML = '<div>';
+				innerHTML += '<strong>Oops! Something went wrong.</strong>';
+				innerHTML += '<br>This content didn\'t load from Foursquare correctly.';
+				innerHTML += '</div>';
+				infowindow.setContent(innerHTML);
+
+			});
+
+			infowindow.open(self.map, marker);
 	  }
 	};
-
-	/* end google map helper functions */
+	/*** end google map helper functions ***/
 
 	self.filterPlaces = function() {
 		// filter markers on map and reset active marker and infowindow
 		self.addMarkers();
 		self.toggleActiveMarker(null);
-
 		return true;
 	};
 
-	self.setPlace = function(clickedPlace) {
-			self.toggleActiveMarker(clickedPlace);
-	};
-
-
 	// initialize all markers
 	self.filterPlaces();
-
 };
 
 return ViewModel;
 });
+
+// custom google map style
+var gmapStyle = [
+		{
+				"featureType": "water",
+				"elementType": "all",
+				"stylers": [
+						{
+								"hue": "#ffffff"
+						},
+						{
+								"saturation": -100
+						},
+						{
+								"lightness": 100
+						},
+						{
+								"visibility": "on"
+						}
+				]
+		},
+		{
+				"featureType": "landscape",
+				"elementType": "all",
+				"stylers": [
+						{
+								"hue": "#ffffff"
+						},
+						{
+								"saturation": -100
+						},
+						{
+								"lightness": 100
+						},
+						{
+								"visibility": "on"
+						}
+				]
+		},
+		{
+				"featureType": "road",
+				"elementType": "geometry",
+				"stylers": [
+						{
+								"hue": "#000000"
+						},
+						{
+								"saturation": -100
+						},
+						{
+								"lightness": -100
+						},
+						{
+								"visibility": "simplified"
+						}
+				]
+		},
+		{
+				"featureType": "road",
+				"elementType": "labels",
+				"stylers": [
+						{
+								"hue": "#ffffff"
+						},
+						{
+								"saturation": -100
+						},
+						{
+								"lightness": 100
+						},
+						{
+								"visibility": "simplified"
+						}
+				]
+		},
+		{
+				"featureType": "poi",
+				"elementType": "all",
+				"stylers": [
+						{
+								"hue": "#ffffff"
+						},
+						{
+								"saturation": -100
+						},
+						{
+								"lightness": 100
+						},
+						{
+								"visibility": "off"
+						}
+				]
+		},
+		{
+				"featureType": "administrative",
+				"elementType": "all",
+				"stylers": [
+						{
+								"hue": "#ffffff"
+						},
+						{
+								"saturation": 0
+						},
+						{
+								"lightness": 100
+						},
+						{
+								"visibility": "off"
+						}
+				]
+		},
+		{
+				"featureType": "transit",
+				"elementType": "geometry",
+				"stylers": [
+						{
+								"hue": "#000000"
+						},
+						{
+								"saturation": 0
+						},
+						{
+								"lightness": -100
+						},
+						{
+								"visibility": "on"
+						}
+				]
+		},
+		{
+				"featureType": "transit",
+				"elementType": "labels",
+				"stylers": [
+						{
+								"hue": "#ffffff"
+						},
+						{
+								"saturation": 0
+						},
+						{
+								"lightness": 100
+						},
+						{
+								"visibility": "off"
+						}
+				]
+		}
+];

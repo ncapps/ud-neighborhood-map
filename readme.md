@@ -1,37 +1,18 @@
-# Knockout.js & RequireJS TodoMVC Example
+# Neighborhood Map Application
+This project is part of Udacity's Full Stack Web Developer Nanodegree Program.
+The objective was to build a single page web application using the **knockout** JavaScript library featuring a neighborhood map. The application highlights locations of interest using the Google Maps API and provides additional venue details using the Foursquare API.
 
-> Knockout.js helps you simplify dynamic JavaScript UIs using the Model-View-ViewModel (MVVM) pattern.
+## Getting started
+1. Clone this repository
+2. Install required packages (by typing ```npm install``` in the directory ```ud-neighborhood-map```)
+3. Run application by opening ```index.html```
 
-> _[Knockout.js - knockoutjs.com](http://knockoutjs.com)_
+## License
+The contents of this repository are covered under the [MIT License](https://opensource.org/licenses/MIT).
 
-
-## Learning Knockout.js
-
-The [Knockout.js website](http://knockoutjs.com) is a great resource for getting started.
-
-Here are some links you may find helpful:
-
-* [Documentation](http://knockoutjs.com/documentation/introduction.html)
-* [Tutorials](http://learn.knockoutjs.com)
-* [Live examples](http://knockoutjs.com/examples)
-
-Articles and guides from the community:
-
-* [Getting Started with Knockout.js](http://www.adobe.com/devnet/html5/articles/getting-started-with-knockoutjs.html)
-* [Into the Ring with Knockout.js](http://net.tutsplus.com/tutorials/javascript-ajax/into-the-ring-with-knockout-js)
-* [Beginners Guide to Knockout.js](http://www.sitepoint.com/beginners-guide-to-knockoutjs-part-1)
-
-Get help from other Knockout.js users:
-
-* [Knockout.js on StackOverflow](http://stackoverflow.com/questions/tagged/knockout)
-* [Mailing list on Google Groups](http://groups.google.com/group/knockoutjs)
-* [Knockout.js on Twitter](http://twitter.com/knockoutjs)
-* [Knockout.js on Google +](https://plus.google.com/communities/106789046312204355684/stream/c5bfcfdf-3690-44a6-b015-35aad4f4e42e)
-
-_If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
-
-
-## Credit
-
-[Map Style](https://snazzymaps.com/style/117/minimalistic-black-and-white)
-This TodoMVC application was created by [@loicknuchel](https://twitter.com/loicknuchel).
+## References
+1. [Knockout JavaScript library](http://knockoutjs.com/index.html)
+2. [Bootstrap front-end component library](http://getbootstrap.com/)
+3. [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/)
+4. [Google Map Style](https://snazzymaps.com/style/117/minimalistic-black-and-white)
+5. [Foursquare API](https://developer.foursquare.com/)
