@@ -5,6 +5,7 @@ The objective was to build a single page web application using the **knockout** 
 ## Getting started
 1. Clone this repository
 2. Install required packages (by typing ```npm install``` in the directory ```ud-neighborhood-map```)
+3. Install [RequireJS plugins](https://github.com/millermedeiros/requirejs-plugins) (```bower install --save requirejs-plugins```)
 3. Run application by opening ```index.html```
 
 ## License

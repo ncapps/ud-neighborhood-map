@@ -1,6 +1,7 @@
 require.config({
   paths: {
-		knockout: '../node_modules/knockout/build/output/knockout-latest'
+		knockout: '../node_modules/knockout/build/output/knockout-latest',
+    async: '../bower_components/requirejs-plugins/src/async'
 	}
 });
 

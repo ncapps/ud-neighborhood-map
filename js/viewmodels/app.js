@@ -1,6 +1,7 @@
 define([
 	'knockout',
-	'models/place'
+	'models/place',
+	'async!https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCB2vemkAO2DirMqzHstBCD0seBzfiODsE&v=3'
 ], function (ko, Place) {
 
 
@@ -165,6 +166,22 @@ var ViewModel = function (Places) {
 
 return ViewModel;
 });
+
+
+requirejs.onError = function (err) {
+	 console.log("Error loading google maps");
+	 var $map = $('#map');
+
+	 var innerHTML = '<div class="gm-err-container">';
+	 innerHTML += '<div class="gm-err-content">';
+	 innerHTML += '<div class="gm-err-icon">';
+	 innerHTML += '<img src="https://maps.gstatic.com/mapfiles/api-3/images/icon_error.png" draggable="false" style="user-select: none;">';
+	 innerHTML += '</div><div class="gm-err-title">Oops! Something went wrong.</div>';
+	 innerHTML += '<div class="gm-err-message">This page didn\'t load Google Maps correctly. See the JavaScript console for technical details.</div>';
+	 innerHTML += '</div></div>';
+
+	 $map.append(innerHTML);
+};
 
 
 // custom google map style
